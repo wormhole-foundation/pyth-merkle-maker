@@ -1,0 +1,171 @@
+use anyhow::{Result, Error};
+// The official list of Wormhole supported chains with their respective IDs
+#[derive(Debug, Clone, Copy, PartialEq)]
+#[repr(u16)]
+pub enum ChainId {
+    Solana = 1,
+    Ethereum = 2,
+    Terra = 3,
+    Bsc = 4,
+    Polygon = 5,
+    Avalanche = 6,
+    Oasis = 7,
+    Algorand = 8,
+    Aurora = 9,
+    Fantom = 10,
+    Karura = 11,
+    Acala = 12,
+    Klaytn = 13,
+    Celo = 14,
+    Near = 15,
+    Moonbeam = 16,
+    Neon = 17,
+    Terra2 = 18,
+    Injective = 19,
+    Osmosis = 20,
+    Sui = 21,
+    Aptos = 22,
+    Arbitrum = 23,
+    Optimism = 24,
+    Gnosis = 25,
+    Pythnet = 26,
+    Xpla = 28,
+    Base = 30,
+    Sei = 32,
+    Rootstock = 33,
+    Scroll = 34,
+    Mantle = 35,
+    Cosmoshub = 4000,
+    Evmos = 4001,
+    Kujira = 4002,
+    Neutron = 4003,
+    Celestia = 4004,
+    Sepolia = 10002,
+    ArbitrumSepolia = 10003,
+    BaseSepolia = 10004,
+    OptimismSepolia = 10005,
+    Holesky = 10006,
+    Discord = 14443
+}
+
+impl ToString for ChainId {
+    fn to_string(&self) -> String {
+        match self {
+            ChainId::Solana => "Solana".to_string(),
+            ChainId::Ethereum => "Ethereum".to_string(),
+            ChainId::Terra => "Terra".to_string(),
+            ChainId::Bsc => "BSC".to_string(),
+            ChainId::Polygon => "Polygon".to_string(),
+            ChainId::Avalanche => "Avalanche".to_string(),
+            ChainId::Oasis => "Oasis".to_string(),
+            ChainId::Algorand => "Algorand".to_string(),
+            ChainId::Aurora => "Aurora".to_string(),
+            ChainId::Fantom => "Fantom".to_string(),
+            ChainId::Karura => "Karura".to_string(),
+            ChainId::Acala => "Acala".to_string(),
+            ChainId::Klaytn => "Klaytn".to_string(),
+            ChainId::Celo => "Celo".to_string(),
+            ChainId::Near => "Near".to_string(),
+            ChainId::Moonbeam => "Moonbeam".to_string(),
+            ChainId::Neon => "Neon".to_string(),
+            ChainId::Terra2 => "Terra2".to_string(),
+            ChainId::Injective => "Injective".to_string(),
+            ChainId::Osmosis => "Osmosis".to_string(),
+            ChainId::Sui => "Sui".to_string(),
+            ChainId::Aptos => "Aptos".to_string(),
+            ChainId::Arbitrum => "Arbitrum".to_string(),
+            ChainId::Optimism => "Optimism".to_string(),
+            ChainId::Gnosis => "Gnosis".to_string(),
+            ChainId::Pythnet => "Pythnet".to_string(),
+            ChainId::Xpla => "Xpla".to_string(),
+            ChainId::Base => "Base".to_string(),
+            ChainId::Sei => "Sei".to_string(),
+            ChainId::Rootstock => "Rootstock".to_string(),
+            ChainId::Scroll => "Scroll".to_string(),
+            ChainId::Mantle => "Mantle".to_string(),
+            ChainId::Cosmoshub => "Cosmoshub".to_string(),
+            ChainId::Evmos => "Evmos".to_string(),
+            ChainId::Kujira => "Kujira".to_string(),
+            ChainId::Neutron => "Neutron".to_string(),
+            ChainId::Celestia => "Celestia".to_string(),
+            ChainId::Sepolia => "Sepolia".to_string(),
+            ChainId::ArbitrumSepolia => "ArbitrumSepolia".to_string(),
+            ChainId::BaseSepolia => "BaseSepolia".to_string(),
+            ChainId::OptimismSepolia => "OptimismSepolia".to_string(),
+            ChainId::Holesky => "Holesky".to_string(),
+            ChainId::Discord => "Discord".to_string(),
+        }
+    }
+}
+
+impl ChainId {
+    pub fn hrp(&self) -> &str {
+        match self {
+            ChainId::Celestia => "celestia",
+            ChainId::Cosmoshub => "cosmos",
+            ChainId::Kujira => "kujira",
+            ChainId::Neutron => "neutron",
+            ChainId::Osmosis => "osmo",
+            ChainId::Sei => "sei",
+            ChainId::Terra |
+            ChainId::Terra2 => "terra",
+            ChainId::Evmos => "evmos",
+            ChainId::Injective => "inj",
+            ChainId::Xpla => "xpla",
+            _ => ""
+        }
+    }
+}
+
+impl TryFrom<u16> for ChainId {
+    type Error = anyhow::Error;
+
+    fn try_from(value: u16) -> Result<Self, Error> {
+        Ok(match value {
+            1 => ChainId::Solana,
+            2 => ChainId::Ethereum,
+            3 => ChainId::Terra,
+            4 => ChainId::Bsc,
+            5 => ChainId::Polygon,
+            6 => ChainId::Avalanche,
+            7 => ChainId::Oasis,
+            8 => ChainId::Algorand,
+            9 => ChainId::Aurora,
+            10 => ChainId::Fantom,
+            11 => ChainId::Karura,
+            12 => ChainId::Acala,
+            13 => ChainId::Klaytn,
+            14 => ChainId::Celo,
+            15 => ChainId::Near,
+            16 => ChainId::Moonbeam,
+            17 => ChainId::Neon,
+            18 => ChainId::Terra2,
+            19 => ChainId::Injective,
+            20 => ChainId::Osmosis,
+            21 => ChainId::Sui,
+            22 => ChainId::Aptos,
+            23 => ChainId::Arbitrum,
+            24 => ChainId::Optimism,
+            25 => ChainId::Gnosis,
+            26 => ChainId::Pythnet,
+            28 => ChainId::Xpla,
+            30 => ChainId::Base,
+            32 => ChainId::Sei,
+            33 => ChainId::Rootstock,
+            34 => ChainId::Scroll,
+            35 => ChainId::Mantle,
+            4000 => ChainId::Cosmoshub,
+            4001 => ChainId::Evmos,
+            4002 => ChainId::Kujira,
+            4003 => ChainId::Neutron,
+            4004 => ChainId::Celestia,
+            10002 => ChainId::Sepolia,
+            10003 => ChainId::ArbitrumSepolia,
+            10004 => ChainId::BaseSepolia,
+            10005 => ChainId::OptimismSepolia,
+            10006 => ChainId::Holesky,
+            14443 => ChainId::Discord,
+            _ => return Err(Error::msg("Invalid chain id"))
+        })
+    }
+}
